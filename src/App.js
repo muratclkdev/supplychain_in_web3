@@ -3,12 +3,14 @@ import Web3 from "web3";
 import contractABI from "./contract-abi";
 import CreateProductForm from "./CreateProductForm";
 
-const CONTRACT_ADDRESS = "0xD7ACd2a9FD159E69Bb102A1ca21C9a3e3A5F771B"; // Akıllı kontratınızın adresini buraya yazın
+const CONTRACT_ADDRESS = "0xD7ACd2a9FD159E69Bb102A1ca21C9a3e3A5F771B";
 
 function App() {
   const [web3, setWeb3] = useState(null);
   const [account, setAccount] = useState(null);
   const [contract, setContract] = useState(null);
+  const [companyName, setCompanyName] = useState("");
+  const [isCompanySet, setIsCompanySet] = useState(false);
 
   useEffect(() => {
     initWeb3();
@@ -20,14 +22,9 @@ function App() {
       setWeb3(web3Instance);
 
       try {
-        // Request account access if needed
         await window.ethereum.request({ method: 'eth_requestAccounts' });
-
-        // Get the connected account
         const accounts = await web3Instance.eth.getAccounts();
         setAccount(accounts[0]);
-
-        // Create the contract instance using the ABI and the contract address
         const contractInstance = new web3Instance.eth.Contract(contractABI, CONTRACT_ADDRESS);
         setContract(contractInstance);
       } catch (error) {
@@ -45,21 +42,42 @@ function App() {
     }
 
     try {
-      // Akıllı kontrat işlevini çağır ve işlemi onaylamak için MetaMask'i kullan
       const result = await contract.methods.createProduct(name, description).send({ from: account });
-
-      // İşlem başarılı olduğunda, işlem sonucunu kullanarak uygulamanızı güncelleyin
       console.log("Product created:", result);
     } catch (error) {
       console.error("Error creating product:", error);
     }
   };
 
+  const handleCompanySubmit = () => {
+    if (companyName) {
+      if (!account) {
+        alert("Lütfen sayfayı yenileyip MetaMask hesabınızla tekrar girmeye çalışın.");
+        return;
+      }
+      setIsCompanySet(true);
+    }
+  };
+
   return (
     <div>
       <h1>Supply Chain App</h1>
-      {account && <p>Connected Account: {account}</p>}
-      <CreateProductForm onCreateProduct={createProduct} />
+      {!isCompanySet ? (
+        <div>
+          <input
+            type="text"
+            placeholder="Company name"
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
+          />
+          <button onClick={handleCompanySubmit}>Save</button>
+        </div>
+      ) : (
+        <div>
+          <p>Welcome {companyName}! Connected Account: {account}</p>
+          <CreateProductForm onCreateProduct={createProduct} />
+        </div>
+      )}
     </div>
   );
 }
