@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import contractABI from "./contract-abi";
 import CreateProductForm from "./CreateProductForm";
+import ProductTable from "./ProductTable";
 
-const CONTRACT_ADDRESS = "0xD7ACd2a9FD159E69Bb102A1ca21C9a3e3A5F771B";
+const CONTRACT_ADDRESS = "0x922A0774eE4049355C0C44A9b549af8864F04075"; 
 
 function App() {
   const [web3, setWeb3] = useState(null);
   const [account, setAccount] = useState(null);
   const [contract, setContract] = useState(null);
   const [companyName, setCompanyName] = useState("");
-  const [isCompanySet, setIsCompanySet] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
 
   useEffect(() => {
     initWeb3();
@@ -28,55 +29,56 @@ function App() {
         const contractInstance = new web3Instance.eth.Contract(contractABI, CONTRACT_ADDRESS);
         setContract(contractInstance);
       } catch (error) {
-        alert("Ethereum'a bağlanırken hata oluştu.");
+        alert("Error while connecting to Ethereum.");
       }
     } else {
-      alert("Ethereum tarayıcı eklentisi bulunamadı. MetaMask'i yüklemeyi düşünün.");
+      alert("Couldn't detect Ethereum browser extension. Consider installing MetaMask.");
     }
   };
 
-  const createProduct = async (name, description) => {
+  const createProduct = async (name, description, situation) => {
     if (!contract) {
-      alert("Akıllı kontrat yüklenemedi.");
+      alert("Smart contract not loaded.");
       return;
     }
 
     try {
-      const result = await contract.methods.createProduct(name, description).send({ from: account });
+      const result = await contract.methods.createProduct(name, description, situation).send({ from: account });
       console.log("Product created:", result);
     } catch (error) {
       console.error("Error creating product:", error);
     }
   };
 
-  const handleCompanySubmit = () => {
-    if (companyName) {
-      if (!account) {
-        alert("Lütfen sayfayı yenileyip MetaMask hesabınızla tekrar girmeye çalışın.");
-        return;
-      }
-      setIsCompanySet(true);
+  const handleSubmitCompany = (event) => {
+    event.preventDefault();
+    if (!web3) {
+      alert("Please reload the page and connect your MetaMask account.");
+      return;
     }
+    setHasSubmitted(true);
   };
 
   return (
     <div>
-      <h1>Supply Chain App</h1>
-      {!isCompanySet ? (
+      <h1>{hasSubmitted ? `Welcome ${companyName}!` : "Supply Chain App"}</h1>
+      {hasSubmitted ? (
         <div>
-          <input
-            type="text"
-            placeholder="Company name"
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
-          />
-          <button onClick={handleCompanySubmit}>Save</button>
+          <p>Connected Account: {account}</p>
+          <CreateProductForm onCreateProduct={createProduct} />
+          <ProductTable contract={contract} account={account} />
         </div>
       ) : (
-        <div>
-          <p>Welcome {companyName}! Connected Account: {account}</p>
-          <CreateProductForm onCreateProduct={createProduct} />
-        </div>
+        <form onSubmit={handleSubmitCompany}>
+          <input
+            type="text"
+            placeholder="Enter Company Name"
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
+            required
+          />
+          <button type="submit">Save</button>
+        </form>
       )}
     </div>
   );
