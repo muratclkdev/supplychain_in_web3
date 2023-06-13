@@ -4,7 +4,7 @@ import contractABI from "./contract-abi";
 import CreateProductForm from "./CreateProductForm";
 import ProductTable from "./ProductTable";
 
-const CONTRACT_ADDRESS = "0x922A0774eE4049355C0C44A9b549af8864F04075"; 
+const CONTRACT_ADDRESS = "0x8d79897a4840acbe56f46227b64509b3a613dd8a"; 
 
 function App() {
   const [web3, setWeb3] = useState(null);
