@@ -3,7 +3,7 @@ import Web3 from "web3";
 import contractABI from "./contract-abi";
 import CreateProductForm from "./CreateProductForm";
 import ProductTable from "./ProductTable";
-import UpdateProductForm from './UpdateProductForm';
+import UpdateProduct from './UpdateProductForm';
 
 const CONTRACT_ADDRESS = "0xBcC538D26c439e03F37939C7a56502CF8C870416";
 
@@ -85,7 +85,7 @@ function App() {
           <h2>Connected Account: {account}</h2>
           <CreateProductForm onCreateProduct={createProduct} />
           <ProductTable contract={contract} />
-          <UpdateProductForm onUpdateProduct={updateProduct} />
+          <UpdateProduct contract={contract} account={account} />
         </>
       )}
     </div>
