@@ -6,6 +6,62 @@ const contractABI = [
 		"type": "constructor"
 	},
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum SupplyChain.ProductStatus",
+				"name": "status",
+				"type": "uint8"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "ProductCreated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum SupplyChain.ProductStatus",
+				"name": "status",
+				"type": "uint8"
+			}
+		],
+		"name": "ProductUpdated",
+		"type": "event"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "string",
@@ -18,9 +74,9 @@ const contractABI = [
 				"type": "string"
 			},
 			{
-				"internalType": "string",
-				"name": "_situation",
-				"type": "string"
+				"internalType": "enum SupplyChain.ProductStatus",
+				"name": "_status",
+				"type": "uint8"
 			}
 		],
 		"name": "createProduct",
@@ -29,27 +85,54 @@ const contractABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "productID",
-		"outputs": [
+		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "_productID",
 				"type": "uint256"
+			}
+		],
+		"name": "getProduct",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "enum SupplyChain.ProductStatus",
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct SupplyChain.Product",
+				"name": "",
+				"type": "tuple"
 			}
 		],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "productIDs",
+		"inputs": [],
+		"name": "productID",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -86,9 +169,9 @@ const contractABI = [
 				"type": "string"
 			},
 			{
-				"internalType": "string",
-				"name": "situation",
-				"type": "string"
+				"internalType": "enum SupplyChain.ProductStatus",
+				"name": "status",
+				"type": "uint8"
 			},
 			{
 				"internalType": "uint256",
@@ -107,64 +190,17 @@ const contractABI = [
 				"type": "uint256"
 			},
 			{
-				"internalType": "string",
-				"name": "_newSituation",
-				"type": "string"
+				"internalType": "enum SupplyChain.ProductStatus",
+				"name": "_newStatus",
+				"type": "uint8"
 			}
 		],
-		"name": "updateSituation",
+		"name": "updateProductStatus",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_productID",
-				"type": "uint256"
-			}
-		],
-		"name": "viewProduct",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "description",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "situation",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "timestamp",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct SupplyChain.Product",
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
 	}
 ]
-	
   
   export default contractABI;
   

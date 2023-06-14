@@ -1,57 +1,67 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-function ProductTable({ contract, account }) {
-  const [products, setProducts] = useState([]);
+const statusToString = (status) => {
+  switch(status) {
+    case '0': return 'Manufacturing';
+    case '1': return 'Processing';
+    case '2': return 'OnShelf';
+    default: return 'Unknown';
+  }
+}
 
-  useEffect(() => {
-    fetchProducts();
-  }, [contract, account]);
+function ProductTable({ contract }) {
+  const [productId, setProductId] = useState("");
+  const [product, setProduct] = useState(null);
 
-  const fetchProducts = async () => {
-    if (!contract || !account) {
-      return;
+  const handleIdChange = (e) => {
+    setProductId(e.target.value);
+  }
+
+  const handleSearch = async () => {
+    if (contract) {
+      const result = await contract.methods.getProduct(productId).call();
+      setProduct({
+        id: result[0],
+        name: result[1],
+        description: result[2],
+        situation: statusToString(result[3]),
+        timestamp: new Date(result[4] * 1000).toLocaleString(),
+      });
     }
-
-    try {
-      const productCount = await contract.methods.productIDs(account).call();
-      const productList = [];
-
-      for (let i = 0; i < productCount; i++) {
-        const product = await contract.methods.getProduct(account, i).call();
-        productList.push(product);
-      }
-
-      setProducts(productList);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
+  }
 
   return (
     <div>
-      <h2>Your Products</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Situation</th>
-            <th>Timestamp</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product, index) => (
-            <tr key={index}>
+      <h2>Product Search</h2>
+      <input
+        type="text"
+        placeholder="Enter product ID"
+        value={productId}
+        onChange={handleIdChange}
+      />
+      <button onClick={handleSearch}>Search</button>
+      {product && (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Situation</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
               <td>{product.id}</td>
               <td>{product.name}</td>
               <td>{product.description}</td>
               <td>{product.situation}</td>
-              <td>{new Date(product.timestamp * 1000).toLocaleString()}</td>
+              <td>{product.timestamp}</td>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
