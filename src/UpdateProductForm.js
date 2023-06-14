@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
 
 function UpdateProductForm({ onUpdateProduct }) {
   const [productId, setProductId] = useState("");
@@ -10,38 +11,39 @@ function UpdateProductForm({ onUpdateProduct }) {
     "rafta": 2
   };
 
-  const updateProduct = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     onUpdateProduct(productId, situations[situation]);
     setProductId("");
     setSituation("fabrikada");
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onUpdateProduct(productId, situation); // onUpdateProduct prop'unun fonksiyon olarak çağırıldığına dikkat edin
-    setProductId("");
-    setSituation("");
-  };
 
   return (
-    <form onSubmit={updateProduct}>
-      <h2>Update Product</h2>
-      <input
-        type="text"
-        placeholder="Product ID"
-        value={productId}
-        onChange={(e) => setProductId(e.target.value)}
-      />
-      <select
-        value={situation}
-        onChange={(e) => setSituation(e.target.value)}
-      >
-        <option value="fabrikada">Fabrikada</option>
-        <option value="işleniyor">İşleniyor</option>
-        <option value="rafta">Rafta</option>
-      </select>
-      <button type="submit">Update Product</button>
-    </form>
+    <Form onSubmit={handleSubmit}>
+      
+      <Form.Group controlId="formProductId">
+        <Form.Label>Product ID</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Product ID"
+          value={productId}
+          onChange={(e) => setProductId(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group controlId="formSituation">
+        <Form.Label>Situation</Form.Label>
+        <Form.Select
+          value={situation}
+          onChange={(e) => setSituation(e.target.value)}
+        >
+          <option value="fabrikada">Fabrikada</option>
+          <option value="işleniyor">İşleniyor</option>
+          <option value="rafta">Rafta</option>
+        </Form.Select>
+      </Form.Group>
+      <br/>
+      <Button variant="primary" type="submit">Update Product</Button>
+    </Form>
   );
 }
 

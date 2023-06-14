@@ -1,17 +1,23 @@
 import React, { useState } from "react";
+import { Form, Button, Card, Alert } from "react-bootstrap";
 
 const statusToString = (status) => {
-  switch(status) {
-    case '0': return 'Manufacturing';
-    case '1': return 'Processing';
-    case '2': return 'OnShelf';
-    default: return 'Unknown';
+  switch (status) {
+    case '0':
+      return 'Manufacturing';
+    case '1':
+      return 'Processing';
+    case '2':
+      return 'OnShelf';
+    default:
+      return 'Unknown';
   }
 }
 
 function ProductTable({ contract }) {
   const [productId, setProductId] = useState("");
   const [product, setProduct] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleIdChange = (e) => {
     setProductId(e.target.value);
@@ -20,49 +26,51 @@ function ProductTable({ contract }) {
   const handleSearch = async () => {
     if (contract) {
       const result = await contract.methods.getProduct(productId).call();
-      setProduct({
-        id: result[0],
-        name: result[1],
-        description: result[2],
-        situation: statusToString(result[3]),
-        timestamp: new Date(result[4] * 1000).toLocaleString(),
-      });
+      const name = result[1];
+      const description = result[2];
+      if (name && description) {
+        setProduct({
+          id: result[0],
+          name,
+          description,
+          situation: statusToString(result[3]),
+          timestamp: new Date(result[4] * 1000).toLocaleString(),
+        });
+        setErrorMessage("");
+      } else {
+        setProduct(null);
+        setErrorMessage("Hatalı ID girişi. Lütfen tekrar deneyin.");
+      }
     }
   }
 
   return (
-    <div>
+    <Card className="p-4">
       <h2>Product Search</h2>
-      <input
-        type="text"
-        placeholder="Enter product ID"
-        value={productId}
-        onChange={handleIdChange}
-      />
-      <button onClick={handleSearch}>Search</button>
+      <Form>
+        <Form.Group controlId="formProductId">
+          <Form.Label>Enter product ID</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter product ID"
+            value={productId}
+            onChange={handleIdChange}
+          />
+        </Form.Group>
+        <Button variant="primary" onClick={handleSearch}>Search</Button>
+      </Form>
+      {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
       {product && (
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Situation</th>
-              <th>Timestamp</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{product.id}</td>
-              <td>{product.name}</td>
-              <td>{product.description}</td>
-              <td>{product.situation}</td>
-              <td>{product.timestamp}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="mt-4">
+          <h4>Product Details</h4>
+          <p><strong>ID:</strong> {product.id}</p>
+          <p><strong>Name:</strong> {product.name}</p>
+          <p><strong>Description:</strong> {product.description}</p>
+          <p><strong>Situation:</strong> {product.situation}</p>
+          <p><strong>Timestamp:</strong> {product.timestamp}</p>
+        </div>
       )}
-    </div>
+    </Card>
   );
 }
 

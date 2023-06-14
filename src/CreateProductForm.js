@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
 
 function CreateProductForm({ onCreateProduct }) {
   const [name, setName] = useState("");
@@ -14,29 +15,38 @@ function CreateProductForm({ onCreateProduct }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Create a new product</h2>
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        required
-      />
-      <select value={situation} onChange={(e) => setSituation(e.target.value)}>
-        <option value="fabrikada">Fabrikada</option>
-        <option value="işleniyor">İşleniyor</option>
-        <option value="rafta">Rafta</option>
-      </select>
-      <button type="submit">Create Product</button>
-    </form>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="formName">
+        <Form.Label>Name</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+      </Form.Group>
+      <Form.Group controlId="formDescription">
+        <Form.Label>Description</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+      </Form.Group>
+      <Form.Group controlId="formSituation">
+        <Form.Label>Situation</Form.Label>
+        <Form.Select value={situation} onChange={(e) => setSituation(e.target.value)} className="pb-1">
+          <option value="fabrikada">Fabrikada</option>
+          <option value="işleniyor">İşleniyor</option>
+          <option value="rafta">Rafta</option>
+        </Form.Select>
+        <br/>
+      </Form.Group>
+      <Button variant="primary" type="submit" className="button">Create Product</Button>
+    </Form>
   );
 }
 
