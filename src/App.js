@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import { Container, Card, Button, Accordion, Badge } from "react-bootstrap";
 import contractABI from "./contract-abi";
-import CreateProductForm from "./CreateProductForm";
-import UpdateProductForm from "./UpdateProductForm";
-import ProductTable from "./ProductTable";
+import CreateProductForm from "./components/CreateProductForm";
+import UpdateProductForm from "./components/UpdateProductForm";
+import ProductTable from "./components/ProductTable";
 import './App.css';
 
 const CONTRACT_ADDRESS = "0xf6897569e40163e8724eb5442a0a7ab95fa0c37a";

@@ -4,11 +4,11 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 const statusToString = (status) => {
   switch (status) {
     case '0':
-      return 'Manufacturing';
+      return 'Fabrikada';
     case '1':
-      return 'Processing';
+      return 'İşleniyor';
     case '2':
-      return 'OnShelf';
+      return "Rafta";
     default:
       return 'Unknown';
   }
@@ -63,12 +63,12 @@ function ProductTable({ contract }) {
       {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
       {product && (
         <div className="mt-4">
-          <h4>Product Details</h4>
+          <h4>Ürün Detayları</h4>
           <p><strong>ID:</strong> {product.id}</p>
-          <p><strong>Name:</strong> {product.name}</p>
-          <p><strong>Description:</strong> {product.description}</p>
-          <p><strong>Situation:</strong> {product.situation}</p>
-          <p><strong>Timestamp:</strong> {product.timestamp}</p>
+          <p><strong>İsim:</strong> {product.name}</p>
+          <p><strong>Açıklama:</strong> {product.description}</p>
+          <p><strong>Durum:</strong> {product.situation}</p>
+          <p><strong>Ürün Oluşturma Saati:</strong> {product.timestamp}</p>
         </div>
       )}
     </Card>
