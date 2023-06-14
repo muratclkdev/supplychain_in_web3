@@ -16,6 +16,12 @@ function UpdateProductForm({ onUpdateProduct }) {
     setProductId("");
     setSituation("fabrikada");
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onUpdateProduct(productId, situation); // onUpdateProduct prop'unun fonksiyon olarak çağırıldığına dikkat edin
+    setProductId("");
+    setSituation("");
+  };
 
   return (
     <form onSubmit={updateProduct}>
