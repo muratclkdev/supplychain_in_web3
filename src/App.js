@@ -32,9 +32,7 @@ function App() {
       const contractInstance = new web3Instance.eth.Contract(contractABI, CONTRACT_ADDRESS);
       setContract(contractInstance);
     } else {
-      <Alert variant="info" onClose={handleDismiss} dismissible>
-        This is an alert message with a <a href="#">link</a>.
-      </Alert>
+      alert("Bu dApp'i kullanmak için lütfen Ethereum uyumlu bir tarayıcı veya MetaMask gibi bir uzantı yükleyin!");
     }
   };
 
