@@ -32,7 +32,9 @@ function App() {
       const contractInstance = new web3Instance.eth.Contract(contractABI, CONTRACT_ADDRESS);
       setContract(contractInstance);
     } else {
-      alert("Please install an Ethereum-compatible browser or extension like MetaMask to use this dApp!");
+      <Alert variant="info" onClose={handleDismiss} dismissible>
+        This is an alert message with a <a href="#">link</a>.
+      </Alert>
     }
   };
 
@@ -84,11 +86,11 @@ function App() {
         className="p-5"
         style={{ width: "400px", background: "rgba(255, 255, 255, 0.8)" }}
       >
-        <h2 className="text-center mb-4">TEDARİK ZİNCİRİ DAPP</h2>
+        <h2 className="text-center mb-4">TEDARİK ZİNCİRİ dAPP</h2>
         {!account ? (
           <>
             <Button className="mt-4" variant="primary" onClick={connectWallet}>
-              Connect Wallet
+              Cüzdan Bağla
             </Button>
             <footer className="mt-4 text-center">
               <small>© 2023 Murat Çelik Tüm hakları saklıdır</small>
