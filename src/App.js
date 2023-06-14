@@ -5,7 +5,11 @@ import CreateProductForm from "./CreateProductForm";
 import ProductTable from "./ProductTable";
 import UpdateProductForm from './UpdateProductForm';
 
+<<<<<<< HEAD
 const CONTRACT_ADDRESS = "0xBcC538D26c439e03F37939C7a56502CF8C870416";
+=======
+const CONTRACT_ADDRESS = "0x8d79897a4840acbe56f46227b64509b3a613dd8a"; 
+>>>>>>> 8a00e5d028399baa74df22ae4c3cd9e4896a3260
 
 function App() {
   const [web3, setWeb3] = useState(null);
