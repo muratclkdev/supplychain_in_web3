@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(to right, green, blue);
+  background: linear-gradient(to right, rgb(14, 186, 94), rgb(43, 43, 224));
   height: 100vh;
   margin: 0;
   background-repeat: no-repeat;
