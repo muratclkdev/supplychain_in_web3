@@ -7,7 +7,7 @@ import UpdateProductForm from "./UpdateProductForm";
 import ProductTable from "./ProductTable";
 import './App.css';
 
-const CONTRACT_ADDRESS = "0xBcC538D26c439e03F37939C7a56502CF8C870416";
+const CONTRACT_ADDRESS = "0xf6897569e40163e8724eb5442a0a7ab95fa0c37a";
 
 function App() {
   const [web3, setWeb3] = useState(null);

@@ -1,5 +1,28 @@
 // contract-abi.js
-const contractABI = [
+const contractABI =[
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
+			},
+			{
+				"internalType": "enum SupplyChain.ProductStatus",
+				"name": "_status",
+				"type": "uint8"
+			}
+		],
+		"name": "createProduct",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
 	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
@@ -64,22 +87,17 @@ const contractABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_description",
-				"type": "string"
+				"internalType": "uint256",
+				"name": "_productID",
+				"type": "uint256"
 			},
 			{
 				"internalType": "enum SupplyChain.ProductStatus",
-				"name": "_status",
+				"name": "_newStatus",
 				"type": "uint8"
 			}
 		],
-		"name": "createProduct",
+		"name": "updateProductStatus",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -120,6 +138,11 @@ const contractABI = [
 						"internalType": "uint256",
 						"name": "timestamp",
 						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
 					}
 				],
 				"internalType": "struct SupplyChain.Product",
@@ -177,27 +200,14 @@ const contractABI = [
 				"internalType": "uint256",
 				"name": "timestamp",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "creator",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_productID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "enum SupplyChain.ProductStatus",
-				"name": "_newStatus",
-				"type": "uint8"
-			}
-		],
-		"name": "updateProductStatus",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]
