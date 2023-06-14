@@ -20,18 +20,17 @@ function UpdateProductForm({ onUpdateProduct }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      
       <Form.Group controlId="formProductId">
-        <Form.Label>Product ID</Form.Label>
+        <br />
         <Form.Control
           type="text"
-          placeholder="Product ID"
+          placeholder="Ürün ID"
           value={productId}
           onChange={(e) => setProductId(e.target.value)}
         />
       </Form.Group>
       <Form.Group controlId="formSituation">
-        <Form.Label>Situation</Form.Label>
+        <br />
         <Form.Select
           value={situation}
           onChange={(e) => setSituation(e.target.value)}
@@ -41,8 +40,10 @@ function UpdateProductForm({ onUpdateProduct }) {
           <option value="rafta">Rafta</option>
         </Form.Select>
       </Form.Group>
-      <br/>
-      <Button variant="primary" type="submit">Update Product</Button>
+      <br />
+      <Button variant="primary" type="submit">
+        Güncelle
+      </Button>
     </Form>
   );
 }

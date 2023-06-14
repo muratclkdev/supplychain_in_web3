@@ -17,35 +17,41 @@ function CreateProductForm({ onCreateProduct }) {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formName">
-        <Form.Label>Name</Form.Label>
+        <br />
         <Form.Control
           type="text"
-          placeholder="Name"
+          placeholder="İsim"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
       </Form.Group>
       <Form.Group controlId="formDescription">
-        <Form.Label>Description</Form.Label>
+        <br />
         <Form.Control
           type="text"
-          placeholder="Description"
+          placeholder="Açıklama"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
         />
       </Form.Group>
       <Form.Group controlId="formSituation">
-        <Form.Label>Situation</Form.Label>
-        <Form.Select value={situation} onChange={(e) => setSituation(e.target.value)} className="pb-1">
+        <br />
+        <Form.Select
+          value={situation}
+          onChange={(e) => setSituation(e.target.value)}
+          className="pb-1"
+        >
           <option value="fabrikada">Fabrikada</option>
           <option value="işleniyor">İşleniyor</option>
           <option value="rafta">Rafta</option>
         </Form.Select>
-        <br/>
+        <br />
       </Form.Group>
-      <Button variant="primary" type="submit" className="button">Create Product</Button>
+      <Button variant="primary" type="submit" className="button">
+        Oluştur
+      </Button>
     </Form>
   );
 }

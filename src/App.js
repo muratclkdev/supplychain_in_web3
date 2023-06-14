@@ -76,46 +76,67 @@ function App() {
   };
   
   return (
-    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
-      <Card className="p-5" style={{ width: "400px", background: "rgba(255, 255, 255, 0.8)" }}>
-        <h2 className="text-center mb-4">Supply Chain App</h2>
-        {
-          !account ? (
-            <>
-              <Button className="mt-4" variant="primary" onClick={connectWallet}>Connect Wallet</Button>
-              <footer className="mt-4 text-center">
-                <small>© 2023 Murat Çelik Tüm hakları saklıdır</small>
-              </footer>
-            </>
-          ) : (
-            <>
-              <Badge variant="secondary">Account: {account ? `${account.slice(0,6)}...${account.slice(-4)}` : 'Loading...'}</Badge>
-              <Accordion defaultActiveKey="0" className="mt-4">
-                <Accordion.Item eventKey="0">
-                  <Accordion.Header>Create Product</Accordion.Header>
-                  <Accordion.Body>
-                    <CreateProductForm onCreateProduct={createProduct} />
-                  </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="1">
-                  <Accordion.Header>Update Product</Accordion.Header>
-                  <Accordion.Body>
-                    <UpdateProductForm onUpdateProduct={updateProduct} />
-                  </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="2">
-                  <Accordion.Header>View Product</Accordion.Header>
-                  <Accordion.Body>
-                    <ProductTable contract={contract} />
-                  </Accordion.Body>
-                </Accordion.Item>
-              </Accordion>
-              <footer className="mt-4 text-center">
-                <small>© 2023 Murat Çelik Tüm hakları saklıdır</small>
-              </footer>
-            </>
-          )
-        }
+    <Container
+      className="d-flex align-items-center justify-content-center"
+      style={{ minHeight: "100vh" }}
+    >
+      <Card
+        className="p-5"
+        style={{ width: "400px", background: "rgba(255, 255, 255, 0.8)" }}
+      >
+        <h2 className="text-center mb-4">TEDARİK ZİNCİRİ DAPP</h2>
+        {!account ? (
+          <>
+            <Button className="mt-4" variant="primary" onClick={connectWallet}>
+              Connect Wallet
+            </Button>
+            <footer className="mt-4 text-center">
+              <small>© 2023 Murat Çelik Tüm hakları saklıdır</small>
+            </footer>
+          </>
+        ) : (
+          <>
+            <Badge variant="secondary">
+              Hesap Adresiniz:{" "}
+              {account
+                ? `${account.slice(0, 6)}...${account.slice(-4)}`
+                : "Loading..."}
+            </Badge>
+            <Accordion defaultActiveKey="0" className="mt-4">
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>Ürün Ekle</Accordion.Header>
+                <Accordion.Body>
+                  <CreateProductForm onCreateProduct={createProduct} />
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="1">
+                <Accordion.Header>Ürün Durumu Güncelle</Accordion.Header>
+                <Accordion.Body>
+                  <UpdateProductForm onUpdateProduct={updateProduct} />
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="2">
+                <Accordion.Header>Ürün İncele</Accordion.Header>
+                <Accordion.Body>
+                  <ProductTable contract={contract} />
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+            <p className="text-center mt-4">
+              <a
+                href={`https://mumbai.polygonscan.com/address/${CONTRACT_ADDRESS}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="custom-link"
+              >
+                Zincirde İncele
+              </a>
+            </p>
+            <footer className="mt-4 text-center">
+              <small>© 2023 Murat Çelik Tüm hakları saklıdır</small>
+            </footer>
+          </>
+        )}
       </Card>
     </Container>
   );

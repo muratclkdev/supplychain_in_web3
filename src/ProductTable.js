@@ -48,10 +48,10 @@ function ProductTable({ contract }) {
     <Card className="p-4">
       <Form>
         <Form.Group controlId="formProductId">
-          <Form.Label><strong>Enter product ID</strong></Form.Label>
+          <br/>
           <Form.Control
             type="text"
-            placeholder="Enter product ID"
+            placeholder="Ürün ID girin."
             value={productId}
             onChange={handleIdChange}
           />
@@ -59,6 +59,7 @@ function ProductTable({ contract }) {
         <br/>
         <Button variant="primary" onClick={handleSearch}>Search</Button>
       </Form>
+      <br/>
       {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
       {product && (
         <div className="mt-4">
