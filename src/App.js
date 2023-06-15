@@ -13,6 +13,7 @@ function App() {
   const [web3, setWeb3] = useState(null);
   const [account, setAccount] = useState(null);
   const [contract, setContract] = useState(null);
+  const [clickCount, setClickCount] = useState(0);
 
   useEffect(() => {
     initWeb3();
@@ -57,7 +58,14 @@ function App() {
       console.error("Error creating product:", error);
     }
   };
-  
+  const handleTitleClick = () => {
+    setClickCount(clickCount + 1);
+
+    if (clickCount + 1 === 5) {
+      window.open("https://ie.sakarya.edu.tr/", "_blank");
+    }
+  };
+
   const updateProduct = async (productId, situation) => {
     if (!contract) {
       alert("Akıllı kontrat yüklenemedi.");
@@ -84,7 +92,7 @@ function App() {
         className="p-5"
         style={{ width: "400px", background: "rgba(255, 255, 255, 0.8)" }}
       >
-        <h2 className="text-center mb-4">TEDARİK ZİNCİRİ dAPP</h2>
+        <h2  onClick={handleTitleClick} className="text-center mb-4">TEDARİK ZİNCİRİ dAPP</h2>
         {!account ? (
           <>
             <Button className="mt-4" variant="primary" onClick={connectWallet}>
