@@ -57,7 +57,7 @@ function ProductTable({ contract }) {
           />
         </Form.Group>
         <br/>
-        <Button variant="primary" onClick={handleSearch}>Search</Button>
+        <Button variant="primary" onClick={handleSearch}>Ara</Button>
       </Form>
       <br/>
       {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
