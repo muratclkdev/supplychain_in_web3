@@ -125,8 +125,7 @@ function App() {
             <p className="text-center mt-4">
               <a
                 href={`https://mumbai.polygonscan.com/address/${CONTRACT_ADDRESS}`}
-                target="_blank"
-                rel="noopener noreferrer"
+                target="_blank"               
                 className="custom-link"
               >
                 Zincirde İncele
